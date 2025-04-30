@@ -8,6 +8,7 @@ export default tseslint.config(
   { ignores: ['dist'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    'react-native/no-inline-styles': 'off',
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
