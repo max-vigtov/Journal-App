@@ -18,10 +18,10 @@ export const JournalLayout = ({ children }: JournalLayoutProps) => {
 
 		<Box
 			component='main'
-			sx={{ 
+			sx={{
 				flexGrow: 1,
 				p: 3,
-				mt: { xs: 6, sm: 8 } // margen para compensar el navbar
+				// mt: { xs: 6, sm: 8 } // margen para compensar el navbar
 			}}
 		>
 			{/* Toolbar */}
