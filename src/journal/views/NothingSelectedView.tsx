@@ -4,16 +4,16 @@ import { Box, Typography } from "@mui/material"
 export const NothingSelectedView = () => {
   return (
 	<Box
-	component="main"
-    sx={{
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-		minHeight: "calc(100vh - 110px)", // Ajusta según tu layout
-		width: "100%",
-		bgcolor: "primary.main",
-		borderRadius: 3,
-	  }}
+		component="main"
+		sx={{
+			display: "flex",
+			justifyContent: "center",
+			alignItems: "center",
+			minHeight: "calc(100vh - 110px)", // Ajusta según tu layout
+			width: "100%",
+			bgcolor: "primary.main",
+			borderRadius: 3,
+		}}
 	>
 		<Box sx={{
 			display: "flex",
