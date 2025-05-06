@@ -1,10 +1,12 @@
 import { JournalLayout } from "../layout/JournalLayout"
-import { NoteView } from "../views"
+import { NothingSelectedView } from "../views"
+import { FloatingActionButton } from "../components"
 
 export const JournalPage = () => {
   return (
     <JournalLayout>
-	    <NoteView/>
+	    <NothingSelectedView/>
+      <FloatingActionButton />
     </JournalLayout>
   )
 }
