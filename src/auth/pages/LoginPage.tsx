@@ -4,21 +4,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 export const LoginPage = () => {
-
-  const { email, password, onInputChange } = useForm({
-    email: 'test@test.com',
-    password: '123456'
-  });
-
-  const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => {
-    event.preventDefault();
-    console.log({ email, password });
-  }
-
-  const onGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
-  }
-
   return (
     <AuthLayout title="Login">
       <form onSubmit={ onSubmit }>
