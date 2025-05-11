@@ -2,7 +2,7 @@ import { checkingCredentials, login, logout } from "./authSlice";
 import { AppDispatch } from "../../store";
 import { registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/provider";
 
-export const checkingAuthentication = ( email: string, password: string ) => {
+export const checkingAuthentication = () => {
     return async( dispatch: AppDispatch ) => {
         dispatch( checkingCredentials() );
     }
@@ -17,9 +17,12 @@ export const startGoogleSignIn = () => {
 		if ( !result.ok ) return dispatch( logout( result.errorMessage || 'Error en la autenticación' ));
 
 		dispatch( login({
-			id: result.uid || '',
+			uid: result.uid || '',
 			email: result.email || '',
-			displayName: result.displayName || ''
+			displayName: result.displayName || '',
+			photoURL: result.photoURL || '',
+			status: 'authenticated',
+			errorMessage: null
 		}));
     }
 }
@@ -29,10 +32,18 @@ export const startRegisterWithEmailPassword = ( email: string, password: string,
 	return async( dispatch: AppDispatch ) => {
 		dispatch( checkingCredentials() );
 
-		const resp = await registerUserWithEmailPassword({ email, password, displayName });
+		const { ok, uid, photoURL, errorMessage } = await registerUserWithEmailPassword({ email, password, displayName });
 
-		console.log(resp);
-		
+		if ( !ok ) return dispatch( logout( errorMessage || 'Error al usuario' ));
+
+		dispatch( login({
+			uid: uid || '',
+			email: email || '',
+			displayName: displayName || '',
+			photoURL: photoURL || '',
+			status: 'authenticated',
+			errorMessage: null
+		}));
 	}
 
 }

@@ -1,12 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface User {
-	id: string;
-	email: string;
-	displayName: string;
-}
-
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 
 interface AuthState {
@@ -31,11 +25,22 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		login: (state, action: PayloadAction<User>) => {
+		login: (state, { payload }: PayloadAction<AuthState>) => {
+			state.status = 'authenticated';
+			state.uid = payload.uid;
+			state.email = payload.email;
+			state.displayName = payload.displayName;
+			state.photoURL = payload.photoURL;
+			state.errorMessage = null;
 		},
 
-		logout: (state, payload: PayloadAction<string>) => {
-
+		logout: (state, { payload }: PayloadAction<string>) => {
+			state.status = 'not-authenticated';
+			state.uid = null;
+			state.email = null;
+			state.displayName = null;
+			state.photoURL = null;
+			state.errorMessage = payload;
 		},
 
 		checkingCredentials: (state) => {
