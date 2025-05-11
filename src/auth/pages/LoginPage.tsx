@@ -2,12 +2,27 @@ import { Google } from '@mui/icons-material';
 import { Box, Button, TextField, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
-
+import { useForm } from '../../hooks';
 export const LoginPage = () => {
+
+  const { email, password, onInputChange } = useForm({
+    email: 'mvt.2000@hotmail.com',
+    password: '123456'
+  });
+
+  const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => {
+    event.preventDefault();
+    console.log({ email, password });
+  }
+
+  const onGoogleSignIn = () => {
+    console.log('onGoogleSignIn');
+  }
+
   return (
     <AuthLayout title="Login">
+      <form onSubmit={ onSubmit }>
         <Box
-          component="form"
           sx={{
             display: "flex",
             flexDirection: { xs: "column", lg: "column" }, // Column en móvil, fila en grande
@@ -22,6 +37,9 @@ export const LoginPage = () => {
             placeholder="email@google.com"
             size="small"
             fullWidth
+            name="email"
+            value={ email }
+            onChange={ onInputChange }
           />
 
           <TextField
@@ -31,6 +49,9 @@ export const LoginPage = () => {
             placeholder="password"
             size="small"
             fullWidth
+            name="password"
+            value={ password }
+            onChange={ onInputChange }
           />
         </Box>
         <Box
@@ -42,13 +63,13 @@ export const LoginPage = () => {
           }}
         >
             <Box sx={{ width: { xs: '100%' } }}>
-              <Button variant='contained' fullWidth>
+              <Button type="submit" variant='contained' fullWidth>
                 Login
               </Button>
             </Box>
          
             <Box sx={{ width: { xs: '100%' } }}>
-              <Button variant='contained' fullWidth>
+              <Button variant='contained' fullWidth onClick={ onGoogleSignIn } >
                 <Google />
                 <Typography sx={{ ml: 1 }}>
                   Google
@@ -70,6 +91,7 @@ export const LoginPage = () => {
             </Link>
           </Typography>
         </Box>
+      </form>
     </AuthLayout>
   );
 };
