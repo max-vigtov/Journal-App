@@ -3,7 +3,12 @@ import { Box, Button, TextField, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
+import { startGoogleSignIn } from '../../store/auth/thunks';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
+
 export const LoginPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const { email, password, onInputChange } = useForm({
     email: 'test@test.com',
@@ -16,7 +21,7 @@ export const LoginPage = () => {
   }
 
   const onGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
+    dispatch( startGoogleSignIn() );
   }
   return (
     <AuthLayout title="Login">
@@ -94,3 +99,4 @@ export const LoginPage = () => {
     </AuthLayout>
   );
 };
+

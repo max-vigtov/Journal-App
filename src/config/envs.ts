@@ -1,14 +1,9 @@
-import 'dotenv/config';
-import { get } from 'env-var';
-
-
 export const envs = {
-
-	APIKEY: get('APIKEY').required().asString(),
-	AUTHDOMAIN: get('AUTHDOMAIN').required().asString(),
-	PROJECTID: get('PROJECTID').required().asString(),
-	STORAGEBUCKET: get('STORAGEBUCKET').required().asString(),
-	MESSAGINGSENDERID: get('MESSAGINGSENDERID').required().asString(),
-	APPID: get('APPID').required().asString(),
-  }
+	APIKEY: import.meta.env.VITE_APIKEY,
+	AUTHDOMAIN: import.meta.env.VITE_AUTHDOMAIN,
+	PROJECTID: import.meta.env.VITE_PROJECTID,
+	STORAGEBUCKET: import.meta.env.VITE_STORAGEBUCKET,
+	MESSAGINGSENDERID: import.meta.env.VITE_MESSAGINGSENDERID,
+	APPID: import.meta.env.VITE_APPID
+};
   

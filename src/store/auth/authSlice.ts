@@ -19,7 +19,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-	status: 'checking',
+	status: 'not-authenticated',
 	uid: null,
 	email: null,
 	displayName: null,
@@ -32,7 +32,6 @@ export const authSlice = createSlice({
 	initialState,
 	reducers: {
 		login: (state, action: PayloadAction<User>) => {
-
 		},
 
 		logout: (state, payload: PayloadAction<string>) => {
@@ -40,7 +39,7 @@ export const authSlice = createSlice({
 		},
 
 		checkingCredentials: (state) => {
-
+			state.status = 'checking';
 		},
 	}
 });
