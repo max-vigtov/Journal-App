@@ -5,6 +5,7 @@ export const NothingSelectedView = () => {
   return (
 	<Box
 		component="main"
+		className="animate__animated animate__fadeIn animate__faster"
 		sx={{
 			display: "flex",
 			justifyContent: "center",

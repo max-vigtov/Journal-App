@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography, TextField } from '@mui/material';
 import { ImageGallery } from "../components";
 export const NoteView = () => {
   return (
-	<Grid container direction='column'>
+	<Grid container direction='column' className="animate__animated animate__fadeIn animate__faster">
 		<Grid container direction='row' justifyContent='space-between' sx={{ md: 5 }}>
 		  
 			<Box>
