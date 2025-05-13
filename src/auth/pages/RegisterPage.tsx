@@ -51,7 +51,7 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title="Crear cuenta">
-      <h1>FormValid: { isFormValid ? 'Válido' : 'Incorrecto'}</h1>
+      {/* <h1>FormValid: { isFormValid ? 'Válido' : 'Incorrecto'}</h1> */}
       <form onSubmit={ onSubmit }>
         <Box
           sx={{

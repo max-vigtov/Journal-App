@@ -32,7 +32,7 @@ export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
 		borderRadius: 2,
 	  }}
 	>
-	  <Typography variant="h5" sx={{ mb: 2, }}>
+	  <Typography variant="h4" sx={{ mb: 2, }}>
 		{ title }
 	  </Typography>
 

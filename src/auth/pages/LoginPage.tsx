@@ -1,28 +1,36 @@
 import { Google } from '@mui/icons-material';
-import { Box, Button, TextField, Typography, Link } from '@mui/material';
+import { Box, Button, TextField, Typography, Link, Alert, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { startGoogleSignIn } from '../../store/auth/thunks';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+import { useMemo } from 'react';
 
 export const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { email, password, onInputChange } = useForm({
-    email: 'test@test.com',
-    password: '123456'
+  const { status, errorMessage } = useSelector((state: RootState) => state.auth);
+
+  const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
+
+  const { email, password, onInputChange, isFormValid } = useForm({
+    email: '',
+    password: ''
   });
 
   const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => {
     event.preventDefault();
-    console.log({ email, password });
+
+    if ( !isFormValid ) return;
+    dispatch( startLoginWithEmailPassword( email, password ) );
   }
 
   const onGoogleSignIn = () => {
     dispatch( startGoogleSignIn() );
   }
+
   return (
     <AuthLayout title="Login">
       <form onSubmit={ onSubmit }>
@@ -58,6 +66,18 @@ export const LoginPage = () => {
             onChange={ onInputChange }
           />
         </Box>
+        <Grid container>          
+            <Box
+              sx={{
+                display: errorMessage ? '' : 'none',
+                pt: 2,
+                width: { xs: '100%', }
+              }}
+            >
+              <Alert severity='error'>{ errorMessage }</Alert>
+            </Box>
+          </Grid>
+
         <Box
           sx={{
             display: 'flex',
@@ -67,13 +87,13 @@ export const LoginPage = () => {
           }}
         >
             <Box sx={{ width: { xs: '100%' } }}>
-              <Button type="submit" variant='contained' fullWidth>
+              <Button type="submit" variant='contained' fullWidth disabled={ isCheckingAuthentication }>
                 Login
               </Button>
             </Box>
          
             <Box sx={{ width: { xs: '100%' } }}>
-              <Button variant='contained' fullWidth onClick={ onGoogleSignIn } >
+              <Button variant='contained' fullWidth onClick={ onGoogleSignIn } disabled={ isCheckingAuthentication }>
                 <Google />
                 <Typography sx={{ ml: 1 }}>
                   Google
