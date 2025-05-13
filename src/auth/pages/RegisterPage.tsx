@@ -1,10 +1,10 @@
-import { Box, TextField, Button, Typography, Link } from "@mui/material"
+import { Box, TextField, Button, Typography, Link, Grid, Alert } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from "../layout/AuthLayout"
 import { useForm } from "../../hooks";
-import { useState } from "react";
-import { AppDispatch } from "../../store";
-import { useDispatch } from "react-redux";
+import { useMemo, useState } from "react";
+import { AppDispatch, RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 import { startRegisterWithEmailPassword } from "../../store/auth/thunks";
 
 const formData = {
@@ -12,7 +12,6 @@ const formData = {
   email: '',
   password: ''
 }
-
 
 const formValidations = {
   email: [ (value: string) => value.includes('@'), 'El correo debe tener un @' ],
@@ -25,6 +24,10 @@ export const RegisterPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [ formSubmitted, setFormSubmitted ] = useState(false);
+
+  const { status, errorMessage } = useSelector((state: RootState) => state.auth);
+
+  const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
 
   const { displayName, 
           email, 
@@ -98,6 +101,17 @@ export const RegisterPage = () => {
             helperText={ passwordValid }
           />
         </Box>
+        <Grid container>          
+            <Box
+              sx={{
+                display: errorMessage ? '' : 'none',
+                pt: 2,
+                width: { xs: '100%', }
+              }}
+            >
+              <Alert severity='error'>{ errorMessage }</Alert>
+            </Box>
+          </Grid>
 
         <Box
           sx={{
@@ -108,10 +122,10 @@ export const RegisterPage = () => {
           }}
         >
           <Box sx={{ width: { xs: '100%' } }}>
-            <Button variant='contained' fullWidth type="submit">
+            <Button variant='contained' fullWidth type="submit" disabled={ isCheckingAuthentication }>
               Crear cuenta
             </Button>
-          </Box>
+          </Box>        
         </Box>
 
         <Box 
