@@ -10,6 +10,7 @@ export const signInWithGoogle = async () => {
 		const result = await signInWithPopup(FirebaseAuth, googleProvider);
 		//const credentials = GoogleAuthProvider.credentialFromResult(result);
 
+		//if ( !result.user ) throw new Error('No se pudo iniciar sesión con Google');
 		const { displayName, email, photoURL, uid } = result.user;
 
 		return {

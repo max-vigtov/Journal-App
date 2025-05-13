@@ -41,7 +41,6 @@ export const LoginPage = () => {
             gap: 2, // Espaciado entre los campos
           }}
         >
-          
           <TextField
             id="email"
             label="Email"
