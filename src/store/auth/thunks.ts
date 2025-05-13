@@ -1,6 +1,6 @@
 import { checkingCredentials, login, logout } from "./authSlice";
 import { AppDispatch } from "../../store";
-import { loginUserEmailPassword, registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/provider";
+import { loginUserEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/provider";
 
 export const checkingAuthentication = () => {
     return async( dispatch: AppDispatch ) => {
@@ -62,5 +62,12 @@ export const startLoginWithEmailPassword = ( email: string, password: string ) =
 			status: 'authenticated',
 			errorMessage: null
 		}));
+	}
+}
+
+export const startLogout = () => {
+	return async( dispatch: AppDispatch ) => {
+		await logoutFirebase();
+		dispatch( logout('') );
 	}
 }
