@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography, Link, Alert, Grid } from '@mui/mate
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { useMemo } from 'react';

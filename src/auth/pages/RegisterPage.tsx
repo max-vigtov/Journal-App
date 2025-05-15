@@ -5,7 +5,7 @@ import { useForm } from "../../hooks";
 import { useMemo, useState } from "react";
 import { AppDispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { startRegisterWithEmailPassword } from "../../store/auth/thunks";
+import { startRegisterWithEmailPassword } from "../../store/auth";
 
 const formData = {
   displayName: '',
