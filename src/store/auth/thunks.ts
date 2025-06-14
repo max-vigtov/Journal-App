@@ -44,7 +44,6 @@ export const startRegisterWithEmailPassword = ( email: string, password: string,
 			errorMessage: null
 		}));
 	}
-
 }
 
 export const startLoginWithEmailPassword = ( email: string, password: string ) => {

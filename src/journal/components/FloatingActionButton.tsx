@@ -1,9 +1,10 @@
 import { IconButton } from "@mui/material";
 import { AddOutlined } from "@mui/icons-material";
 
-export const FloatingActionButton = () => (
+export const FloatingActionButton = ({ onClick, disabled }: { onClick: () => void, disabled?: boolean }) => (
   <IconButton
     size="large"
+    disabled={disabled}
     sx={{
       color: 'white',
       backgroundColor: 'error.main',
@@ -12,6 +13,7 @@ export const FloatingActionButton = () => (
       right: 50,
       bottom: 50,
     }}
+    onClick={onClick}
   >
     <AddOutlined sx={{ fontSize: 30 }}/>
   </IconButton>
