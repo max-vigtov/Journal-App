@@ -1,12 +1,12 @@
 import { collection, doc, setDoc } from "firebase/firestore";
 import { AppDispatch, RootState } from "../store";
 import { FirebaseDB } from "../../firebase/config";
-import { addNewEmptyNote, Note, setActiveNote, savingNewNote, setNotes } from "./journalSlice";
+import { addNewEmptyNote, Note, setActiveNote, savingNewNote, setNotes, setSaving, updateNote } from "./journalSlice";
 import { loadNotes } from "../../helpers";
 
 export const startNewNote = () => {
 	return async ( dispatch: AppDispatch, getState: () => RootState ) => {
-		dispatch( savingNewNote());
+		dispatch( savingNewNote() );
 
 		const { uid } = (getState()).auth;
 		
@@ -19,14 +19,13 @@ export const startNewNote = () => {
 		}
 
 		const newDoc = doc( collection( FirebaseDB, `${uid}/journal/notes` ) );
+		newNote.id = newDoc.id;
 		await setDoc( newDoc, newNote );
 
-		newNote.id = newDoc.id;
 		dispatch( addNewEmptyNote( newNote ));
 		dispatch( setActiveNote( newNote ));
 	}
 }
-
 
 export const startLoadingNotes = () => {
 	return async ( dispatch: AppDispatch, getState: () => RootState ) => {
@@ -36,5 +35,24 @@ export const startLoadingNotes = () => {
 		
 		const notes = await loadNotes( uid );
 		dispatch( setNotes( notes ));
+	}
+}
+
+export const startSaveNote = ( ) => {
+	return async ( dispatch: AppDispatch, getState: () => RootState ) => {
+
+		dispatch( setSaving( ));
+		const { uid } = (getState()).auth;
+		const { active: note } = (getState()).journal;
+
+		if ( note === null ) return;
+
+		const { id, ...noteToFirestore } = note;
+
+		const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ id }` );
+
+		await setDoc( docRef, noteToFirestore, { merge: true } );	
+		
+		dispatch( updateNote( note ));
 	}
 }

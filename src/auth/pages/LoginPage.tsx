@@ -8,6 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { useMemo } from 'react';
 
+const formData = {
+  email: '',
+  password: ''
+}
+
 export const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -15,10 +20,7 @@ export const LoginPage = () => {
 
   const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
 
-  const { email, password, onInputChange, isFormValid } = useForm({
-    email: '',
-    password: ''
-  });
+  const { email, password, onInputChange, isFormValid } = useForm( formData );
 
   const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => {
     event.preventDefault();
