@@ -15,13 +15,9 @@ export const fileUpload = async( file: File ) => {
 			body: formData
 		});
 
-		console.log(resp);
-
 		if ( !resp.ok ) throw new Error('No se pudo subir el archivo');
 		
 		const cloudResp = await resp.json();
-		console.log({ cloudResp });
-		
 
 		return cloudResp.secure_url;
 		
