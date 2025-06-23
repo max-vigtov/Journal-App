@@ -17,12 +17,12 @@ export const NoteView = () => {
 
 	const { body, title, date, onInputChange, formState } = useForm( note );
 	
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	
 	const dateString = useMemo(() => {
 		const newDate = new Date(date);
 		return newDate.toUTCString();
 	}, [date])
-
-	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 	  dispatch( setActiveNote(formState) )
@@ -95,6 +95,7 @@ export const NoteView = () => {
 				value={ title }
 				onChange={ onInputChange }
 			/>
+
 			<TextField
 				type="text"
 				variant="filled"
@@ -106,6 +107,7 @@ export const NoteView = () => {
 				value={ body }
 				onChange={ onInputChange }
 			/>
+			
 		</Grid>
 		<ImageGallery images={ note!.imageUrls }/>
 	</Grid>
